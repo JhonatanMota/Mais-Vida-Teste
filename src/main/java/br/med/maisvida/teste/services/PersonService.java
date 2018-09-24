@@ -1,7 +1,7 @@
 package br.med.maisvida.teste.services;
 
 import br.med.maisvida.teste.models.Person;
-import br.med.maisvida.teste.repositories.PersonRepository;
+import br.med.maisvida.teste.repositories.IBaseRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -12,25 +12,28 @@ import java.util.Optional;
 @Service
 public class PersonService {
 
-    @Autowired
-    private PersonRepository personPersonRepository;
+//	@Autowired
+//	private IBaseRepository<Person> personIBaseRepository;
 
-    public Person find(Integer id) {
-        Optional<Person> person = personPersonRepository.findById(id.longValue());
-        return person.orElseThrow(() -> new RuntimeException(
-                "Objeto não encontrado. Id: " + id + ", Tipo: " + Person.class.getName()));
-    }
+	@Autowired
+	private IBaseRepository iBaseRepository;
 
-    public List<Person> findAll(){
-        return personPersonRepository.findAll();
-    }
+	public Person find(Integer id) {
+		Optional<Person> person = iBaseRepository.findById(id.longValue());
+		return person.orElseThrow(() -> new RuntimeException(
+				"Objeto não encontrado. Id: " + id + ", Tipo: " + Person.class.getName()));
+	}
 
-    public Person save(Person person){
-        return personPersonRepository.save(person);
-    }
+	public List<Person> findAll() {
+		return iBaseRepository.findAll();
+	}
 
-    public void remove(Long id){
-        personPersonRepository.deleteById(id);
-    }
+	public Person save(Person person) {
+		return (Person) iBaseRepository.save(person);
+	}
+
+	public void remove(Long id) {
+		iBaseRepository.deleteById(id);
+	}
 
 }

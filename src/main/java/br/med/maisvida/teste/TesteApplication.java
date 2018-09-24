@@ -2,7 +2,7 @@ package br.med.maisvida.teste;
 
 import br.med.maisvida.teste.models.Document;
 import br.med.maisvida.teste.models.Person;
-import br.med.maisvida.teste.repositories.PersonRepository;
+import br.med.maisvida.teste.repositories.IBaseRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -16,19 +16,34 @@ import java.util.List;
 @SpringBootApplication
 public class TesteApplication implements CommandLineRunner {
 
-    @Autowired
-    private PersonRepository personRepository;
+	@Autowired
+	private IBaseRepository IBaseRepository;
 
-    public static void main(String[] args) {
-        SpringApplication.run(TesteApplication.class, args);
-    }
+	public static void main(String[] args) {
+		SpringApplication.run(TesteApplication.class, args);
+	}
 
-    @Override
-    public void run(String... args) throws Exception {
-        List<Document> documentList = new ArrayList<>();
-        personRepository.save(Person.builder()
-                .name("Jhonatan")
-                .bithDate(LocalDate.of(1994, Month.JANUARY, 18))
-                .documents(documentList).build());
-    }
+	@Override
+	public void run(String... args) throws Exception {
+
+		List<Document> documentList = new ArrayList<>();
+		Person person = Person.builder()
+				.name("Jhonatan")
+				.bithDate(LocalDate.of(1994, Month.JANUARY, 18))
+				.build();
+
+		documentList.add(Document.builder()
+				.type("CPF")
+				.number("056.198-682-13")
+				.person(person)
+				.build());
+		documentList.add(Document.builder()
+				.type("RG")
+				.number("4548.484")
+				.person(person)
+				.build());
+		person.setDocuments(documentList);
+		IBaseRepository.save(person);
+
+	}
 }
