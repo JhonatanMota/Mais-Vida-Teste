@@ -2,7 +2,7 @@ package br.med.maisvida.teste;
 
 import br.med.maisvida.teste.models.Document;
 import br.med.maisvida.teste.models.Person;
-import br.med.maisvida.teste.repositories.IBaseRepository;
+import br.med.maisvida.teste.repositories.IPersonRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -17,7 +17,7 @@ import java.util.List;
 public class TesteApplication implements CommandLineRunner {
 
 	@Autowired
-	private IBaseRepository IBaseRepository;
+	private IPersonRepository IPersonRepository;
 
 	public static void main(String[] args) {
 		SpringApplication.run(TesteApplication.class, args);
@@ -29,7 +29,7 @@ public class TesteApplication implements CommandLineRunner {
 		List<Document> documentList = new ArrayList<>();
 		Person person = Person.builder()
 				.name("Jhonatan")
-				.bithDate(LocalDate.of(1994, Month.JANUARY, 18))
+				.birthDate(LocalDate.of(1994, Month.JANUARY, 18))
 				.build();
 
 		documentList.add(Document.builder()
@@ -43,7 +43,7 @@ public class TesteApplication implements CommandLineRunner {
 				.person(person)
 				.build());
 		person.setDocuments(documentList);
-		IBaseRepository.save(person);
+		IPersonRepository.save(person);
 
 	}
 }

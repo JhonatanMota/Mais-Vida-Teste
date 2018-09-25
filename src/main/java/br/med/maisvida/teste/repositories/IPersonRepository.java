@@ -9,6 +9,6 @@ import org.springframework.stereotype.Repository;
 import java.io.Serializable;
 
 @Repository
-public interface IBaseRepository<T extends AbstractEntity> extends JpaRepository<T, Long> {
+public interface IPersonRepository extends JpaRepository<Person, Long> {
 }
 

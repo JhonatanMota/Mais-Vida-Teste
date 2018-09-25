@@ -23,7 +23,7 @@ public class Person extends AbstractEntity {
     @NotNull(message = "O preenchimento do nome é obrigatório")
     private String name;
 
-    private LocalDate bithDate;
+    private LocalDate birthDate;
 
     private State state;
 
@@ -31,4 +31,13 @@ public class Person extends AbstractEntity {
     @JsonBackReference
     private List<Document> documents = new ArrayList<>();
 
+    public Person() {
+    }
+
+    public Person(String name, LocalDate birthDate, State state, List<Document> documents) {
+        this.name = name;
+        this.birthDate = birthDate;
+        this.state = state;
+        this.documents = documents;
+    }
 }

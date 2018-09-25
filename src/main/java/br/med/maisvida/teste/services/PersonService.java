@@ -1,7 +1,7 @@
 package br.med.maisvida.teste.services;
 
 import br.med.maisvida.teste.models.Person;
-import br.med.maisvida.teste.repositories.IBaseRepository;
+import br.med.maisvida.teste.repositories.IPersonRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -16,24 +16,24 @@ public class PersonService {
 //	private IBaseRepository<Person> personIBaseRepository;
 
 	@Autowired
-	private IBaseRepository iBaseRepository;
+	private IPersonRepository iPersonRepository;
 
 	public Person find(Integer id) {
-		Optional<Person> person = iBaseRepository.findById(id.longValue());
+		Optional<Person> person = iPersonRepository.findById(id.longValue());
 		return person.orElseThrow(() -> new RuntimeException(
 				"Objeto não encontrado. Id: " + id + ", Tipo: " + Person.class.getName()));
 	}
 
 	public List<Person> findAll() {
-		return iBaseRepository.findAll();
+		return iPersonRepository.findAll();
 	}
 
 	public Person save(Person person) {
-		return (Person) iBaseRepository.save(person);
+		return (Person) iPersonRepository.save(person);
 	}
 
 	public void remove(Long id) {
-		iBaseRepository.deleteById(id);
+		iPersonRepository.deleteById(id);
 	}
 
 }
